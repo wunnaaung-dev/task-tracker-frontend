@@ -1,20 +1,27 @@
-import { useState } from "react";
-import { getErrorMessage } from "@/lib/api-client";
-import type { TaskStatus } from "../types";
-import { useTasks } from "../hooks/use-tasks";
+import { useState } from 'react'
+import type { TaskStatus } from '../types'
+import TaskFilters from './task-filters'
+import TaskForm from './task-form'
+import TaskList from './task-list'
+import TasksLeft from './tasks-left'
 
 const TaskPage = () => {
-  const [status] = useState<TaskStatus>("all");
-  const { data: tasks = [], isPending, error } = useTasks(status);
+  const [status, setStatus] = useState<TaskStatus>('all')
 
   return (
-    <main className="mx-auto max-w-xl px-4 py-12">
-      <h1 className="border-b-4 border-ink pb-2 text-5xl font-bold tracking-tighter">Tasks</h1>
-      {isPending && <p className="py-8 text-center text-muted">Loading tasks…</p>}
-      {error && <p className="text-accent">{getErrorMessage(error)}</p>}
-      <ul>{tasks.map((t) => <li key={t.id}>{t.title}</li>)}</ul>
-    </main>
-  );
-};
+    <main className="mx-auto w-full max-w-xl px-4 pt-6 pb-12 sm:pt-12 lg:max-w-2xl lg:pt-24">
+      <header className="mb-6 flex flex-col items-start gap-1 border-b-4 border-ink pb-2 min-[361px]:flex-row min-[361px]:items-end min-[361px]:justify-between">
+        <h1 className="text-[clamp(2rem,6vw+1rem,3.5rem)] leading-none font-bold tracking-tighter">
+          Tasks
+        </h1>
+        <TasksLeft />
+      </header>
 
-export default TaskPage;
+      <TaskForm />
+      <TaskFilters value={status} onChange={setStatus} />
+      <TaskList status={status} />
+    </main>
+  )
+}
+
+export default TaskPage
