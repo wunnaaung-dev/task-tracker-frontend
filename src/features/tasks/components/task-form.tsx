@@ -62,7 +62,7 @@ const TaskForm = () => {
           className="min-w-32"
         />
 
-        <Button type="submit" disabled={!canSubmit}>
+        <Button type="submit" disabled={!canSubmit} isLoading={createTask.isPending}>
           {createTask.isPending ? "Adding…" : "Add"}
         </Button>
       </div>

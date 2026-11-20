@@ -86,7 +86,11 @@ const TaskEditDialog = ({ task, onClose }: TaskEditDialogProps) => {
           <Button variant="secondary" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit" disabled={!canSave}>
+          <Button
+            type="submit"
+            disabled={!canSave}
+            isLoading={updateTask.isPending}
+          >
             {updateTask.isPending ? "Saving…" : "Save"}
           </Button>
         </div>
