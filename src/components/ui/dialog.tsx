@@ -28,7 +28,7 @@ export function Dialog({ title, onClose, children, className }: DialogProps) {
         if (e.target === e.currentTarget) onClose() 
       }}
       className={cn(
-        'm-auto w-[min(28rem,calc(100%-2rem))] border-2 border-ink bg-paper p-6 text-ink backdrop:bg-black/50',
+        'overflow-visible m-auto w-[min(28rem,calc(100%-2rem))] border-2 border-ink bg-paper p-6 text-ink backdrop:bg-black/50',
         className,
       )}
     >

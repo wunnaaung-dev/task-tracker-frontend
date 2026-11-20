@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
-import { getErrorMessage } from "@/lib/api-client";
-import { useUpdateTask } from "../hooks/use-task-mutations";
-import type { Priority, Task } from "../types";
+
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
+import { Select } from "@/components/ui/select";
+import { getErrorMessage } from "@/lib/api-client";
+
+import { PRIORITY_OPTIONS } from "../constants";
+import { useUpdateTask } from "../hooks/use-task-mutations";
+import type { Priority, Task } from "../types";
 
 const MAX_TITLE = 100;
 
@@ -39,13 +43,6 @@ const TaskEditDialog = ({ task, onClose }: TaskEditDialogProps) => {
   return (
     <Dialog title="Edit task" onClose={onClose}>
       <form onSubmit={handleSubmit}>
-        <h2
-          id={`edit-title-${task.id}`}
-          className="mb-4 border-b-4 border-ink pb-2 text-2xl font-bold tracking-tight"
-        >
-          Edit task
-        </h2>
-
         <label
           htmlFor={`edit-input-${task.id}`}
           className="mb-1 block text-xs font-bold tracking-widest text-muted uppercase"
@@ -68,22 +65,13 @@ const TaskEditDialog = ({ task, onClose }: TaskEditDialogProps) => {
           {title.length}/{MAX_TITLE}
         </p>
 
-        <label
-          htmlFor={`edit-priority-${task.id}`}
-          className="mb-1 block text-xs font-bold tracking-widest text-muted uppercase"
-        >
-          Priority
-        </label>
-        <select
-          id={`edit-priority-${task.id}`}
+        <Select
+          label="Priority"
           value={priority}
-          onChange={(e) => setPriority(e.target.value as Priority)}
-          className="mb-6 min-h-11 w-full border border-ink bg-paper px-4"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+          options={PRIORITY_OPTIONS}
+          onChange={setPriority}
+          className="mb-6"
+        />
 
         {updateTask.isError && (
           <p

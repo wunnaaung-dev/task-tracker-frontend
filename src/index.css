@@ -42,3 +42,32 @@
     @apply outline-2 outline-offset-2 outline-accent;
   }
 }
+
+
+@utility scrollbar-swiss {
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--line);
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background: var(--muted);
+  }
+  &::-webkit-scrollbar-thumb:hover,
+  &::-webkit-scrollbar-thumb:active {
+    background: var(--ink);
+  }
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) transparent;
+  }
+}

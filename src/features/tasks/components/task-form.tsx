@@ -3,6 +3,8 @@ import { getErrorMessage } from "@/lib/api-client";
 import { useCreateTask } from "../hooks/use-task-mutations";
 import type { Priority } from "../types";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
+import { PRIORITY_OPTIONS } from "../constants";
 
 const MAX_TITLE = 100;
 
@@ -51,16 +53,14 @@ const TaskForm = () => {
         <label htmlFor="task-priority" className="sr-only">
           Priority
         </label>
-        <select
-          id="task-priority"
+        <Select
+          label="Priority"
+          hideLabel
           value={priority}
-          onChange={(e) => setPriority(e.target.value as Priority)}
-          className="min-h-11 border border-ink bg-paper px-4"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+          options={PRIORITY_OPTIONS}
+          onChange={setPriority}
+          className="min-w-32"
+        />
 
         <Button type="submit" disabled={!canSubmit}>
           {createTask.isPending ? "Adding…" : "Add"}
